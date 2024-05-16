@@ -9,12 +9,12 @@ navigation_icon_moves_activated = ft.Icon(name=ft.icons.BOLT, color='yellow')
 
 type_color = {
     'bug': '#9ACD32',
-    'plant': '#7CFC00',
+    'grass': '#7CFC00',
     'normal': '#8FBC8B',
     'psychic': '#FFC0CB',
     'ghost': '#663399',
     'ground': '#DAA520',
-    'metal': '#D3D3D3',
+    'steel': '#D3D3D3',
     'ice': '#ADD8E6',
     'rock': '#BC8F8F',
     'dark': '#2F4F4F',
