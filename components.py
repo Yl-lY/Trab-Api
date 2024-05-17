@@ -23,7 +23,17 @@ def search_bar(func_name, align = ft.MainAxisAlignment.START):
     )
     return search_bar
 
-def card_pokemon(poke:dict, sex: bool, size: float, shadow: float) -> ft.Container:
+def filter_bar():
+    bar = ft.Row(
+        vertical_alignment= ft.MainAxisAlignment.CENTER,
+        controls=[]
+    )
+
+def poke_body():
+    # dg = ft.DialogTheme()
+    print('funciona')
+
+def card_pokemon(poke:dict, sex: bool, size: float, shadow: float, spread: float, offset: list, click: bool) -> ft.Container:
     image = ft.Container(
         expand=3,
         alignment=ft.alignment.top_center,
@@ -98,9 +108,10 @@ def card_pokemon(poke:dict, sex: bool, size: float, shadow: float) -> ft.Contain
         height=100 * size,
         bgcolor='transparent',
         clip_behavior=ft.ClipBehavior.NONE,
-        shadow=ft.BoxShadow(blur_radius= shadow, color=pt.type_color[poke['type'][0]]),
+        shadow=ft.BoxShadow(blur_radius= shadow, color=pt.type_color[poke['type'][0]], spread_radius=spread, offset= ft.Offset(offset[0], offset[1])),
         alignment=ft.alignment.center,
-        border_radius=ft.border_radius.all(30),
+        border_radius=ft.border_radius.all(20),
+        on_click=poke_body,
         content=ft.Column(
             spacing=0,
             controls=[

@@ -13,6 +13,9 @@ def main(page: ft.Page):
   page.title = "teste v0.1"
   page.bgcolor = 'black'
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+  page.theme_mode = ft.ThemeMode.DARK
+  page.window_min_height = 600
+  page.window_min_width = 1000
 
 
   def load_poke(e):
@@ -25,7 +28,7 @@ def main(page: ft.Page):
       del(page.controls[1].content.controls[-1])
 
     response = func.get_poke(search_value)
-    card = comp.card_pokemon(response, True, 1.8, 100)
+    card = comp.card_pokemon(response, True, 1.8, 50, 0, [0, 0], True)
 
     page.controls[1].content.controls.append(card)
     page.update()
@@ -41,6 +44,7 @@ def main(page: ft.Page):
       page.controls[1].content.controls.append(search_poke)
       page.update()
 
+    
     if main_index == 1:
       page.scroll = ft.ScrollMode.AUTO
 
@@ -54,14 +58,18 @@ def main(page: ft.Page):
         spacing=10
       )
       page.controls[1].content.controls.append(chain)
-      for i in range (30):
-        print(i)
-        response = func.get_poke(str(i + 1))
-        card = comp.card_pokemon(response, False, 1.3, 100)
-        chain.controls.append(card)
-        cont = i+1
-        if cont % 3 == 0:
-          page.update()
+
+    i = 0
+    while main_index == 1:
+      i += 1
+      print(i)
+      print(main_index)
+      response = func.get_poke(str(i + 1))
+      card = comp.card_pokemon(response, False, 1.3, 1, 1, [-1.5, -1.5], True)
+      chain.controls.append(card)
+      cont = i+1
+      if cont % 3 == 0:
+        page.update()
 
     if main_index == 2:
       page.controls[1].content.controls.clear()
