@@ -1,21 +1,16 @@
-import requests
 import flet as ft
 import patterns as pt
 import components as comp
 import functions as func
-
-api = "https://pokeapi.co/api/v2/"
-poke = "pokemon/"
-contador = 0
-
+import time
 
 def main(page: ft.Page):
   page.title = "teste v0.1"
   page.bgcolor = 'black'
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.theme_mode = ft.ThemeMode.DARK
-  page.window_min_height = 600
-  page.window_min_width = 1000
+  page.window_min_height, page.window_height = [600, 600]
+  page.window_min_width, page.window_width = [1000, 1000]
 
 
   def load_poke(e):
@@ -32,7 +27,6 @@ def main(page: ft.Page):
 
     page.controls[1].content.controls.append(card)
     page.update()
-    
 
   def change_tab(e):
     main_index = e.control.selected_index
@@ -46,30 +40,23 @@ def main(page: ft.Page):
 
     
     if main_index == 1:
-      page.scroll = ft.ScrollMode.AUTO
-
       page.controls[1].content.controls.clear()
-      page.update()
-      page.controls[1].padding = ft.padding.only(top=0)
+      page.controls[1].padding = ft.padding.all(0)
+      page.scroll = ft.ScrollMode.AUTO
 
       chain = ft.Row(
         wrap=True,
-        width=page.window_width * 0.7,
+        width=830,
         spacing=10
       )
-      page.controls[1].content.controls.append(chain)
-
-    i = 0
-    while main_index == 1:
-      i += 1
-      print(i)
-      print(main_index)
-      response = func.get_poke(str(i + 1))
-      card = comp.card_pokemon(response, False, 1.3, 1, 1, [-1.5, -1.5], True)
-      chain.controls.append(card)
-      cont = i+1
-      if cont % 3 == 0:
-        page.update()
+      page.controls[1].content.controls.extend([comp.filter_bar(), chain])
+      page.update()
+      dex = func.get_pokedex()
+      for i in dex:
+        response = func.format_poke(i)
+        card = comp.card_pokemon(response, False, 1.3, 1, 1, [-1.5, -1.5], True)
+        chain.controls.append(card)
+      page.update()
 
     if main_index == 2:
       page.controls[1].content.controls.clear()

@@ -23,15 +23,47 @@ def search_bar(func_name, align = ft.MainAxisAlignment.START):
     )
     return search_bar
 
-def filter_bar():
+def filter_bar() -> ft.Row:
+    generation_dropdown = ft.Dropdown(
+                on_change=...,
+                options=[
+                    ft.dropdown.Option('All', alignment=ft.alignment.center)
+                ]
+            )
+    for i in range(1,10):
+        generation_dropdown.options.append(ft.dropdown.Option(f'Generation ' + str(i), alignment=ft.alignment.center))
+
+    type_dropdown = ft.Dropdown(
+        on_change=...,
+        options=[
+            ft.dropdown.Option('All', alignment=ft.alignment.center)
+        ]
+    )
+    for key in pt.type_color:
+        type_dropdown.options.append(ft.dropdown.Option(key.capitalize(), alignment=ft.alignment.center))
     bar = ft.Row(
         vertical_alignment= ft.MainAxisAlignment.CENTER,
-        controls=[]
+        controls=[
+            generation_dropdown,
+            type_dropdown
+        ]
     )
+    for i in bar.controls:
+        i.bgcolor = 'white'
+        i.border_color = 'red'
+        i.color = 'black'
+        i.border_radius = ft.border_radius.all(20)
+        i.height = 40
+        i.width = 150
+        i.content_padding = ft.padding.all(0)
+        i.alignment = ft.alignment.center_right
+        i.text_style = ft.TextStyle(weight=ft.FontWeight.BOLD)
+        
 
-def poke_body():
-    # dg = ft.DialogTheme()
-    print('funciona')
+    return bar
+
+def poke_body(e: ft.ContainerTapEvent):
+    print(f'{e.local_x}')
 
 def card_pokemon(poke:dict, sex: bool, size: float, shadow: float, spread: float, offset: list, click: bool) -> ft.Container:
     image = ft.Container(
@@ -56,7 +88,8 @@ def card_pokemon(poke:dict, sex: bool, size: float, shadow: float, spread: float
                 image.content = ft.Image(src= poke['sprite_female']['front'], scale=1.5)
                 image.update()
             else:
-                ft.alert.dialog()
+                # ft.alert.dialog()
+                print('nem existe mano')
         else:
             image.content.src = poke['sprite']['front']
             image.update()
@@ -111,7 +144,6 @@ def card_pokemon(poke:dict, sex: bool, size: float, shadow: float, spread: float
         shadow=ft.BoxShadow(blur_radius= shadow, color=pt.type_color[poke['type'][0]], spread_radius=spread, offset= ft.Offset(offset[0], offset[1])),
         alignment=ft.alignment.center,
         border_radius=ft.border_radius.all(20),
-        on_click=poke_body,
         content=ft.Column(
             spacing=0,
             controls=[
@@ -119,8 +151,10 @@ def card_pokemon(poke:dict, sex: bool, size: float, shadow: float, spread: float
             ]
         )
     )
-
-    body.content.controls.extend([sex_button, info]) if sex else body.content.controls.append(info) 
+    # body.content.controls.append(ft.Container(content=ft.Text(value=poke['name'].capitalize(), color='white', bgcolor='black')))
+    body.content.controls.extend([sex_button, info]) if sex else body.content.controls.append(info)
+    if click:
+        body.on_click = poke_body 
 
     return body
 
