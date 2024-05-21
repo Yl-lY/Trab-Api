@@ -5,7 +5,9 @@ import time
 
 api = "https://pokeapi.co/api/v2/"
 param_poke = "pokemon/"
-pokes = list(range(1, 1001))
+poke_forms = list(range(10001, 10264))
+pokes = list(range(1, 1026))
+pokes.extend(poke_forms)
 
 def format_poke(response):
     pokemon = {
@@ -38,7 +40,6 @@ def get_poke(poke: str) -> dict:
     return pokemon
 
 results = []
-start = time.time()
 def get_tasks(session):
     tasks = []
 
@@ -60,7 +61,7 @@ def get_tasks(session):
 async def get_pokequests():
     async with aiohttp.ClientSession() as session:
         tasks = get_tasks(session)
-        if len(tasks) == 10:
+        if len(tasks) > 1:
             for i in tasks:
                 responses = await asyncio.gather(*i)
                 for response in responses:
@@ -73,10 +74,8 @@ async def get_pokequests():
 def get_pokedex():
     asyncio.run(get_pokequests())
     return results
-end = time.time()
 
 
 
-print(end - start)
 for i in results:
     print(f'{i['name']} - {i['id']}')

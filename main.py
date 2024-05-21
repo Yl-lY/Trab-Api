@@ -51,7 +51,10 @@ def main(page: ft.Page):
       )
       page.controls[1].content.controls.extend([comp.filter_bar(), chain])
       page.update()
+      start = time.time()
       dex = func.get_pokedex()
+      end = time.time()
+      print(end - start)
       for i in dex:
         response = func.format_poke(i)
         card = comp.card_pokemon(response, False, 1.3, 1, 1, [-1.5, -1.5], True)
