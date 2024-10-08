@@ -4,8 +4,8 @@ navigation_icon_pokemon = ft.Icon(name=ft.icons.CATCHING_POKEMON)
 navigation_icon_pokemon_activated = ft.Icon(name=ft.icons.CATCHING_POKEMON, color='red')
 navigation_icon_pokedex = ft.Icon(name=ft.icons.LIBRARY_BOOKS_OUTLINED)
 navigation_icon_pokedex_activated = ft.Icon(name=ft.icons.LIBRARY_BOOKS_OUTLINED, color='blue')
-navigation_icon_moves = ft.Icon(name=ft.icons.BOLT)
-navigation_icon_moves_activated = ft.Icon(name=ft.icons.BOLT, color='yellow')
+navigation_icon_moves = ft.Icon(name=ft.icons.CONSTRUCTION)
+navigation_icon_moves_activated = ft.Icon(name=ft.icons.CONSTRUCTION, color='yellow')
 
 type_color = {
     'bug': '#9ACD32',
@@ -26,4 +26,16 @@ type_color = {
     'flying': '#E0FFFF',
     'fire': '#FF8C00',
     'fairy': '#FF69B4'
+}
+
+generations = {
+    '1': [1, 151],
+    '2': [152, 251],
+    '3': [252, 386],
+    '4': [387, 493],
+    '5': [494, 649],
+    '6': [650, 721],
+    '7': [722, 809],
+    '8': [810, 905],
+    '9': [906, 1025]
 }
